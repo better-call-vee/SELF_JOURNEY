@@ -19,12 +19,11 @@ int main() {
     cin >> n;
 
     vector<ll> inp(n);
-    for(int i = 0; i < n; i++) cin >> inp[i];
-    //we have to find the maximum sum among the subarrays
+    for(int i = 0; i < n; i++) cin >> inp[i]; 
 
     ll maxSum = -1e18, maxSubarrSum = -1e18;
     for(int i = 0; i < n; i++) {
-        maxSubarrSum = max(inp[i], inp[i] + maxSubarrSum); //simulate to understand.
+        maxSubarrSum = max(inp[i], inp[i] + maxSubarrSum);
         maxSum = max(maxSubarrSum, maxSum);
     }
 
