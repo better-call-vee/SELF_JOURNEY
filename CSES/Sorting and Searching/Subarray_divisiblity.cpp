@@ -1,0 +1,50 @@
+/*
+☞ Better.Call.Vee ☜
+created: 21th November, 2023 21:40:34 GMT+6
+*/
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+
+int main() {
+    cin.tie(nullptr)->sync_with_stdio(false);
+
+    int n;
+    cin >> n;
+
+    vector<int> inp(n), mod_cnt(n, 0), pre_sum_mods(n + 1, 0);
+    for(int i = 0; i < n; i++) cin >> inp[i];
+
+    mod_cnt[0] = 1;
+    // prefix_sum[j] - prefix_sum[i-1] = subarray sum. so, we
+    // need the 0 mod count set to 1. 0 % n is 0(an implicit empty subarray)
+    for(int i = 1; i <= n; i++) {
+        pre_sum_mods[i] = pre_sum_mods[i - 1] + inp[i - 1];
+        pre_sum_mods[i] %= n;
+        pre_sum_mods[i] = (pre_sum_mods[i] + n) % n; // numbers can be negative
+        mod_cnt[pre_sum_mods[i]]++; // counting the mods' frequencies
+    }
+
+    ll ans = 0;
+    auto combinations = [&](int j) {
+        ans += (1ll * mod_cnt[j] * (mod_cnt[j] - 1) / 2);
+    };
+    // a lambda function to count the combinations
+
+    for(int i = 0; i < n; i++) combinations(i);
+
+    cout << ans;
+
+    return 0;
+}
+
+/*
+2 5 5
+here => prefix sums => 0 2 7 12
+next => pre_sum_mods : 0 2 2 2
+so, here these 3 2s will be making 3 combinations where mod n will be 0.
+12 - the first 2 = 10;
+12 - 7 = 5
+7 - 2 = 5( here we need the pre_sum_mods[0], thus mod_cnt[0] is set to 1
+initially.
+*/
