@@ -1,6 +1,7 @@
 /*
 ☞ Better.Call.Vee ☜
 created: 21th November, 2023 21:40:34 GMT+6
+https://cses.fi/problemset/task/1662
 */
 #include <bits/stdc++.h>
 using namespace std;
@@ -41,10 +42,12 @@ int main() {
 /*
 2 5 5
 here => prefix sums => 0 2 7 12
-next => pre_sum_mods : 0 2 2 2
-so, here these 3 2s will be making 3 combinations where mod n will be 0.
-12 - the first 2 = 10;
-12 - 7 = 5
-7 - 2 = 5( here we need the pre_sum_mods[0], thus mod_cnt[0] is set to 1
-initially.
+next => pre_sum_mods : 0 2 1 0
+the 1 mods will make 1 combination. 12 - 0 = 12.
+
+(prefix_sum[r] - prefix_sum[l-1]) % n has to be 0.
+So, prefix_sum[r] % n = prefix_sum[l] % n means we got a sub-array.
+so, we store the mod counts.
+and the (mod_cnt * mod_cnt - 1) / 2 is to calculate the sub-array combinations
+
 */
